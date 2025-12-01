@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 
 students = []
-with open("students.txt") as f:
+with open("data/students.txt") as f:
     for line in f:
         line = line.strip()
         score = int(line[:3])
@@ -10,15 +10,14 @@ with open("students.txt") as f:
 
 assignments = {}
 
-with open("submissions/assignments.txt") as f:
+with open("data/submissions/assignments.txt") as f:
     lines = [line.strip() for line in f]
 
 i = 0
 while i < len(lines):
     name = lines[i]
-    digits = lines[i+1]
-    points = int(lines[i+2])
-
+    digits = lines[i + 1]
+    points = int(lines[i + 2])
     scores = [int(d) for d in digits]
 
     assignments[name] = (scores, points)
@@ -39,6 +38,7 @@ if selection == "1":
         exit()
 
     idx = students.index(name)
+
     total = 0
     total_possible = 0
 
@@ -48,7 +48,7 @@ if selection == "1":
         total += earned
         total_possible += points
 
-    percent = round(total / total_possible * 100)
+    percent = round((total / total_possible) * 100)
     print(f"{percent}%")
 
 elif selection == "2":
@@ -63,7 +63,7 @@ elif selection == "2":
     percentages = [(d / 9) * 100 for d in scores]
 
     print(f"Min: {round(min(percentages))}%")
-    print(f"Avg: {round(sum(percentages)/len(percentages))}%")
+    print(f"Avg: {round(sum(percentages) / len(percentages))}%")
     print(f"Max: {round(max(percentages))}%")
 
 elif selection == "3":
@@ -77,6 +77,9 @@ elif selection == "3":
 
     percentages = [(d / 9) * 100 for d in scores]
 
-    plt.hist(percentages, bins=[0,25,50,75,100])
+    plt.hist(percentages, bins=[50, 60, 70, 80, 90, 100], edgecolor='black')
+    plt.xlim(50, 100)
+    plt.xlabel("Percentage")
+    plt.ylabel("Number of Students")
+    plt.title(f"Score Distribution for {name}")
     plt.show()
-
