@@ -10,7 +10,7 @@ with open("data/students.txt") as f:
 
 assignments = {}
 
-with open("data/submissions/assignments.txt") as f:
+with open("data/assignments.txt") as f:
     lines = [line.strip() for line in f]
 
 i = 0
