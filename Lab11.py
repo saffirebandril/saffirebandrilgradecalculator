@@ -4,9 +4,10 @@ students = []
 with open("data/students.txt") as f:
     for line in f:
         line = line.strip()
-        score = int(line[:3])
         name = line[3:].strip()
         students.append(name)
+
+num_students = len(students)
 
 assignments = {}
 
@@ -18,10 +19,10 @@ while i < len(lines):
     name = lines[i]
     digits = lines[i + 1]
     points = int(lines[i + 2])
+
     scores = [int(d) for d in digits]
 
     assignments[name] = (scores, points)
-
     i += 3
 
 print("1. Student grade")
@@ -43,8 +44,13 @@ if selection == "1":
     total_possible = 0
 
     for assign, (scores, points) in assignments.items():
-        d = scores[idx]
-        earned = (d / 9) * points
+
+        if idx < len(scores):
+            d = scores[idx]
+            earned = (d / 9) * points
+        else:
+            earned = 0
+
         total += earned
         total_possible += points
 
@@ -65,6 +71,7 @@ elif selection == "2":
     print(f"Min: {round(min(percentages))}%")
     print(f"Avg: {round(sum(percentages) / len(percentages))}%")
     print(f"Max: {round(max(percentages))}%")
+
 
 elif selection == "3":
     name = input("What is the assignment name: ").strip()
